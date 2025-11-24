@@ -4,12 +4,14 @@ on: workflow_dispatch
 
 jobs:
   prerequisite-job:
+    environment: dev
     runs-on: ubuntu-latest
     steps:
       - name: Do some work
         run: echo "This is a prerequisite job."
 
   dependent-job:
+    environment: staging
     needs: prerequisite-job
     if: always()
     runs-on: ubuntu-latest
