@@ -10,7 +10,7 @@ jobs:
       - name: Do some work
         run: echo "This is a prerequisite job."
 
-  dependent-job:
+  staging-job:
     environment: staging
     needs: prerequisite-job
     if: always()
@@ -18,3 +18,12 @@ jobs:
     steps:
       - name: Continue after prerequisite
         run: echo "This job runs after the prerequisite job is complete."
+
+  production-job:
+    environment: production
+    needs: staging-job
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Continue after prerequisite
+        run: echo "This job runs after the staging job is complete."
